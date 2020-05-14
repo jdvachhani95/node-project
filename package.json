@@ -4,6 +4,8 @@
   "description": "nodejs project",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.$NODE_ENV.js",
+    "start": "node dist/server",
     "test": "npm test"
   },
   "repository": {
