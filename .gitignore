@@ -4,3 +4,5 @@ typings/
 node_modules/
 dist/
 .runtimeconfig.json
+
+.env
