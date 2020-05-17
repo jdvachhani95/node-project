@@ -1,32 +1,27 @@
 import { mongoDbProvider } from './../../mongodb.provider';
+import { DataConversion } from '../data/dataConversion';
 const axios = require('axios');
-const xml2js = require('xml2js');
 const fs = require('fs');
 export default {
   Query: {
-    // testMessage: (): string => 'Hello World!',
-    async xmlToJson(_: any, args: any, context: any) {
+    async GetVehicleMakes(_: any, args: any, context: any) {
       try {
         const response = await axios.get(
-          'https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId/440?format=xml'
+          'https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=XML'
         );
-        await xml2js.parseString(
-          response.data,
-          { mergeAttrs: true },
-          async (err: any, res: any) => {
-            if (err) {
-              throw err;
-            }
-            await mongoDbProvider
-              .getCollection('users')
-              .insert(res.Response.Results);
-            const json = JSON.stringify(res.Response.Results, null, 4);
-            fs.writeFileSync('user.json', json);
-            // console.log(json);
-          }
+        const fetchedData = await DataConversion.concatVehicleType(
+          response.data
         );
-        // console.log(response);
-        return 'hello world';
+        const vehicleMakes = {
+          AllVehicleMakes: fetchedData,
+          LastUpdated: Math.floor(new Date().getTime() / 1000),
+        };
+        await mongoDbProvider
+          .getCollection('VehicleMakesDocs')
+          .insert(vehicleMakes);
+        const json = JSON.stringify(vehicleMakes, null, 4);
+        fs.writeFileSync('AllVehicleMakes.json', json);
+        return vehicleMakes;
       } catch (error) {
         console.log(error);
       }
