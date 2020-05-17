@@ -18,7 +18,7 @@ export default {
         };
         await mongoDbProvider
           .getCollection('VehicleMakesDocs')
-          .insert(vehicleMakes);
+          .insertOne(vehicleMakes);
         const json = JSON.stringify(vehicleMakes, null, 4);
         fs.writeFileSync('AllVehicleMakes.json', json);
         return vehicleMakes;

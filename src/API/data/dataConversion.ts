@@ -8,7 +8,7 @@ export class DataConversion {
    */
   static async concatVehicleType(data: any) {
     try {
-      let ConcatenatedVehicleInfo: any[] = [];
+      let ConcatenatedVehicleInfo: Promise<any>[] = [];
       // Convert Vehicle makes info to js object
       const rawData = this.xml2JsObject(data);
 
@@ -33,7 +33,8 @@ export class DataConversion {
           ConcatenatedVehicleInfo.push(concatedMakeType);
         });
       }
-      return ConcatenatedVehicleInfo;
+      const result = await Promise.all(ConcatenatedVehicleInfo);
+      return result;
     } catch (err) {
       throw new ApolloError(err);
     }

@@ -6,7 +6,6 @@ import { mongoDbProvider } from './mongodb.provider';
 
 (async function bootstrapAsync(): Promise<void> {
   await mongoDbProvider.connectAsync(environment.mongoDb.databaseName);
-  // await addMockUsersAsync(); // TODO: Remove in PROD.
 
   const server = new ApolloServer({
     resolvers,
