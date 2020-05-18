@@ -8,10 +8,10 @@ export class DataConversion {
    */
   static async concatVehicleType(data: any) {
     try {
-      let ConcatenatedVehicleInfo: Promise<any>[] = [];
+      let ConcatenatedVehicleInfo: any = [];
       // Convert Vehicle makes info to js object
       const rawData = this.xml2JsObject(data);
-
+      let count = 0;
       // Concate Vehicle types with vehicle makes
       if (rawData[0].AllVehicleMakes !== undefined) {
         const vehicleMakeData = rawData[0].AllVehicleMakes;
@@ -30,11 +30,11 @@ export class DataConversion {
             concatedMakeType['VehicleTypesForMakeIds'] =
               vehicleTypes[0]['VehicleTypesForMakeIds'];
           }
+          console.log(count++);
           ConcatenatedVehicleInfo.push(concatedMakeType);
         });
       }
-      const result = await Promise.all(ConcatenatedVehicleInfo);
-      return result;
+      return ConcatenatedVehicleInfo;
     } catch (err) {
       throw new ApolloError(err);
     }

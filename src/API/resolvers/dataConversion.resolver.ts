@@ -26,5 +26,15 @@ export default {
         console.log(error);
       }
     },
+    async GetLastUpdatedMakesDoc(_: any, args: any, context: any) {
+      try {
+        const refDoc = await mongoDbProvider
+          .getCollection('VehicleMakesDocs')
+          .findOne({}, { sort: { $natural: -1 } });
+        return refDoc;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };

@@ -31,5 +31,10 @@ export default gql`
     *Note: Mutation take approx 30 min to fetch all vehicle types for makeIds and combine complete doc
     """
     GetVehicleMakes: AllVehicleMakesInfo!
+
+    """
+    Query return the last updated Vehicle makes document from the collection
+    """
+    GetLastUpdatedMakesDoc: AllVehicleMakesInfo!
   }
 `;
