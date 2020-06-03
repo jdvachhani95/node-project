@@ -5,7 +5,7 @@ This is a nodeJs based project with Apollo GraphQL server using Typescript and W
 ---
 ## Requirements
 
-For development, you will only need Node.js and a node global package installed in your environement.
+For Development, you will only need Node.js and a node global package installed in your environement.
 
 Download Docker and just go on and follow steps [Docker Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04).
 
